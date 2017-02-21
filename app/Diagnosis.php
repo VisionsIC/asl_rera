@@ -1,5 +1,6 @@
 <?php
 namespace App;
+use App\PatientNames;
 use Illuminate\Database\Eloquent\Model;
 /**
  * App\Diagnosis
@@ -18,4 +19,9 @@ use Illuminate\Database\Eloquent\Model;
 class Diagnosis extends Model {
     // Select Field #5 Data Model Class: Diagnosis
     protected $table='diagnosis';
+    //
+    public function room() {
+        //
+        return $this->belongsTo('App\Rooms');
+    }
 }

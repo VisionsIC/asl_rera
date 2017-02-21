@@ -26,7 +26,14 @@ Auth::routes();
 
 // RERA Dashboard Home Landing Page Routing.
 Route::get('home', 'HomeController@index')->middleware('auth');
-
+// RERA Dashboard Home Wheelchair Requests Routing.
+Route::get('findPatientName','HomeController@findPatientName'); // Route to controller that handles SELECT tag #2
+Route::get('findRoom','HomeController@findRoom'); // Route to controller that handles SELECT tag #3
+Route::get('findGender','HomeController@findGender'); // Route to controller that handles SELECT tag #4
+Route::get('findDiagnosis','HomeController@findDiagnosis'); // Route to controller that handles SELECT tag #5
+Route::get('findTherapistNames','HomeController@findTherapistNames'); // Route to controller that handles SELECT tag #7
+Route::get('findInpatientWcModels','HomeController@findInpatientWcModels'); // Route to controller that handles SELECT tag #9
+Route::get('findInpatientWcBrands','HomeController@findInpatientWcBrands'); // Route to controller that handles SELECT tag #10
 // User Login Form Routing.
 Route::get('user/login', 'UserAuth\LoginController@showLoginForm');
 Route::post('user/login', 'UserAuth\LoginController@login');
@@ -61,9 +68,35 @@ Route::get('admin/password/reset/{token}', 'AdminAuth\ResetPasswordController@sh
 // API Controller Routing For Dependant Dynamic Drop Down Feature of Multi-Step Form Wizard.
 Route::get('ajaxJsonResponse', 'HomeController@ajaxJsonResponse');
 // API Test 1 - working.
-Route::get('prodview','TestController@prodfunct');
-Route::get('findProductName','TestController@findProductName');
-Route::get('findPrice','TestController@findPrice');
+Route::get('testauto','TestAutoController@index'); // View Control
+Route::get('findUnits','TestAutoController@findUnits'); // Method Control
+Route::get('findPatientNames','TestAutoController@findPatientNames'); // Method Control
+Route::get('findRooms','TestAutoController@findRooms'); // Method Control
+Route::get('findGender','TestAutoController@findGender'); // Method Control
+Route::get('findDiagnosis','TestAutoController@findDiagnosis'); // Method Control
+Route::get('findTherapistTitles','TestAutoController@findTherapistTitles'); // Method Control
+Route::get('findTherapistNames','TestAutoController@findTherapistNames'); // Method Control
+Route::get('findWcTypes','TestAutoController@findWcTypes'); // Method Control
+Route::get('findInpatientWcModels','TestAutoController@findInpatientWcModels'); // Method Control
+Route::get('findInpatientWcBrands','TestAutoController@findInpatientWcBrands'); // Method Control
+Route::get('findWcDimensions','TestAutoController@findWcDimensions'); // Method Control
+Route::get('findWcHeights','TestAutoController@findWcHeights'); // Method Control
+Route::get('findWcBacks','TestAutoController@findWcBacks'); // Method Control
+Route::get('findCushionTypes','TestAutoController@findCushionTypes'); // Method Control
+Route::get('findCushionDimensions','TestAutoController@findCushionDimensions'); // Method Control
+Route::get('findArmrestTypes','TestAutoController@findArmrestTypes'); // Method Control
+
+
+
+// API Test 2 - working (somewhat).
+Route::get('testview','TestController@index'); // Opens Form View
+Route::get('findPatientName','TestController@findPatientName'); // Route to controller that handles SELECT tag #2
+Route::get('findRoom','TestController@findRoom'); // Route to controller that handles SELECT tag #3
+Route::get('findGender','TestController@findGender'); // Route to controller that handles SELECT tag #4
+Route::get('findDiagnosis','TestController@findDiagnosis'); // Route to controller that handles SELECT tag #5
+Route::get('findTherapistNames','TestController@findTherapistNames'); // Route to controller that handles SELECT tag #7
+Route::get('findInpatientWcModels','TestController@findInpatientWcModels'); // Route to controller that handles SELECT tag #9
+Route::get('findInpatientWcBrands','TestController@findInpatientWcBrands'); // Route to controller that handles SELECT tag #10
 // Test 2 (Closure)
 // Route::get('names/{id}', function($id) {$names = array(1 => "John", 2 => "Mary", 3 => "Steven"); return array($id => $names[$id]);});
 //Route::resource('names', 'NameController');

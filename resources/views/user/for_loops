@@ -69,3 +69,31 @@ Select Group #16
     <option value="{{$armrest->id}}">{{$armrest->armrest_type}}</option>
 @endforeach
 @endif
+
+JQuery:
+
+$(document).on('change','.productname',function () {
+            var prod_id=$(this).val();
+
+            var a=$(this).parent();
+            console.log(prod_id);
+            var op="";
+            $.ajax({
+                type:'get',
+                url:'{!!URL::to('findPrice')!!}',
+                data:{'id':prod_id},
+                dataType:'json',//return data will be json
+                success:function(data){
+                    console.log("price");
+                    console.log(data.price);
+
+                    // here price is coloumn name in products table data.coln name
+
+                    a.find('.prod_price').val(data.price);
+
+                },
+                error:function(){
+
+                }
+            });
+        });

@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $armrest_type_id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @method static whereSelect($value)
- * @method static whereArmrestType($value)
- * @method static whereArmrestTypeId($value)
- * @method static whereCreatedAt($value)
- * @method static whereId($value)
- * @method static whereUpdatedAt($value)
+ * @method static whereSelect()
+ * @method static whereArmrestType($armrest_type)
+ * @method static whereArmrestTypeId($armrest_type_id)
+ * @method static whereCreatedAt($created_at)
+ * @method static whereId($id)
+ * @method static whereUpdatedAt($updated_at)
  */
 class ArmrestTypes extends Model {
     // Select Field #16 Data Model Class: ArmrestTypes

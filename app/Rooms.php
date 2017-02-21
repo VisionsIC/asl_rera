@@ -21,4 +21,8 @@ use Illuminate\Database\Eloquent\Model;
 class Rooms extends Model {
     // Select Field #3 Data Model Class: Rooms
     protected $table='rooms';
+    //
+    public function diagnosis() {
+        return $this->hasOne('App\Diagnosis');
+    }
 }

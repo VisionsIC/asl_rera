@@ -81,7 +81,7 @@
                                                                 </div>
                                                                 <div class="form-horizontal" role="form">
                                                                     <!-- Start Of 2nd Tab Form -->
-                                                                    <form>
+                                                                    <form method="post" action="/wc_requests">
                                                                         <div class="container">
                                                                             <div class="row" id="wizard-row">
                                                                                 <section>
@@ -125,11 +125,10 @@
                                                                                         </div>
                                                                                         <!-- Start of Step 1 Form -->
                                                                                         <form role="form">
+                                                                                            {{ csrf_field() }}
                                                                                             <div class="tab-content">
                                                                                                 <!-- Start of Step 1 Select Form Panel -->
                                                                                                 <div class="tab-pane active" role="tabpanel" id="step1">
-                                                                                                {{ csrf_field() }}
-
                                                                                                 <!-- Patient Location Title -->
                                                                                                     <h5 id="patient-info-title">Patient Information</h5>
                                                                                                     <div id="fg-wrap"></div>
@@ -137,36 +136,38 @@
                                                                                                     <div id="fg-fw-1" class="form-group">
                                                                                                         <label for="unit" class="col-md-4 control-label">Unit</label>
                                                                                                         <div class="col-md-4">
-                                                                                                            <select title="unit" id="unit" class="unit form-control select-picker show-tick" name="unit" data-style="btn-info" autofocus>
-                                                                                                                <option value="0">Choose A Unit</option>
-                                                                                                                <option value="1">Spruce</option>
-                                                                                                                <option value="2">Birch</option>
-                                                                                                                <option value="3">Maple</option>
-                                                                                                                <option value="4">Oak</option>
+                                                                                                            <select title="unit" id="unit_id" class="units form-control select-picker show-tick" name="unit" data-style="btn-info" autofocus>
+                                                                                                                <option value="0" disabled selected>Select A Unit</option>
+                                                                                                                @foreach($units as $unit)
+                                                                                                                    <option value="{{$unit->id}}">{{$unit->unit}}</option>
+                                                                                                                @endforeach
                                                                                                             </select>
                                                                                                         </div>
                                                                                                     </div>
-                                                                                                    <!-- Patient Name Select Form Group # 2 -->
+                                                                                                    <!-- Patient Name Select Form Group # 2 (JQuery Control) -->
                                                                                                     <div id="fg-fw-2" class="form-group">
                                                                                                         <label for="patient_name" class="col-md-4 control-label">Patient Name</label>
                                                                                                         <div class="col-md-4">
-                                                                                                            <select title="patient_name" id="patient_name" class="patientname form-control select-picker show-tick" name="patient_name" data-style="btn-info" autofocus>
+                                                                                                            <select title="patient_name" id="patient_name" class="patient_name form-control select-picker show-tick" name="patient_name" data-style="btn-info" autofocus>
+                                                                                                                <option value="0" disabled selected>Select Patient</option>
                                                                                                             </select>
                                                                                                         </div>
                                                                                                     </div>
-                                                                                                    <!-- Room Select Form Group # 3 -->
+                                                                                                    <!-- Room Select Form Group # 3 (JQuery Control) -->
                                                                                                     <div id="fg-fw-3" class="form-group">
                                                                                                         <label for="room" class="col-md-4 control-label">Room</label>
                                                                                                         <div class="col-md-4">
                                                                                                             <select title="room" id="room" class="room form-control select-picker show-tick" name="room" data-style="btn-info" autofocus>
+                                                                                                                <option value="0" disabled selected>Select Room</option>
                                                                                                             </select>
                                                                                                         </div>
                                                                                                     </div>
-                                                                                                    <!-- Gender Select Form Group # 4 -->
+                                                                                                    <!-- Gender Select Form Group # 4 (JQuery Control) -->
                                                                                                     <div id="fg-fw-4" class="form-group">
                                                                                                         <label for="gender" class="col-md-4 control-label">Gender</label>
                                                                                                         <div class="col-md-4">
-                                                                                                            <select title="gender" id="gender" class="form-control select-picker show-tick" name="gender" data-style="btn-info" autofocus>
+                                                                                                            <select title="gender" id="gender" class="gender form-control select-picker show-tick" name="gender" data-style="btn-info" autofocus>
+                                                                                                                <option value="0" disabled selected>Select Gender</option>
                                                                                                             </select>
                                                                                                         </div>
                                                                                                     </div>
@@ -183,11 +184,12 @@
                                                                                                     <!-- Care Info Title -->
                                                                                                     <h5 id="patient-info-title">Patient Information</h5>
 
-                                                                                                    <!-- Diagnosis Select Form Group # 5 -->
+                                                                                                    <!-- Diagnosis Select Form Group # 5 (JQuery Control) -->
                                                                                                     <div id="fg-fw-5" class="form-group">
                                                                                                         <label for="diagnosis" class="col-md-4 control-label">Diagnosis</label>
                                                                                                         <div class="col-md-4">
-                                                                                                            <select title="diagnosis" id="diagnosis" class="form-control select-picker show-tick" name="diagnosis" data-style="btn-info" autofocus>
+                                                                                                            <select title="diagnosis" id="diagnosis" class="diagnosis_abbreviation form-control select-picker show-tick" name="diagnosis" data-style="btn-info" autofocus>
+                                                                                                                <option value="0" disabled selected>Select Diagnosis</option>
                                                                                                             </select>
                                                                                                         </div>
                                                                                                     </div>
@@ -195,15 +197,20 @@
                                                                                                     <div id="fg-fw-6" class="form-group">
                                                                                                         <label for="therapist_title" class="col-md-4 control-label">Therapist Title</label>
                                                                                                         <div class="col-md-4">
-                                                                                                            <select title="therapist_title" id="therapist_title" class="form-control select-picker show-tick" name="therapist_title" data-style="btn-info" autofocus>
+                                                                                                            <select title="therapist_title" id="therapist_title" class="therapist_title form-control select-picker show-tick" name="therapist_title" data-style="btn-info" autofocus>
+                                                                                                                <option value="0" disabled selected>Select Therapist Title</option>
+                                                                                                                @foreach($therapist_title as $title)
+                                                                                                                    <option value="{{$title->id}}">{{$title->title_abbreviation}}</option>
+                                                                                                                @endforeach
                                                                                                             </select>
                                                                                                         </div>
                                                                                                     </div>
-                                                                                                    <!-- Therapist Name Select Form Group # 7 -->
+                                                                                                    <!-- Therapist Name Select Form Group # 7 (JQuery Control) -->
                                                                                                     <div id="fg-fw-7" class="form-group">
                                                                                                         <label for="therapist_name" class="col-md-4 control-label">Therapist Name</label>
                                                                                                         <div class="col-md-4">
-                                                                                                            <select title="therapist_name" id="therapist_name" class="form-control select-picker show-tick" name="therapist_name" data-style="btn-info" autofocus>
+                                                                                                            <select title="therapist_name" id="therapist_name" class="therapist_names form-control select-picker show-tick" name="therapist_name" data-style="btn-info" autofocus>
+                                                                                                                <option value="0" disabled selected>Select Therapist Name</option>
                                                                                                             </select>
                                                                                                         </div>
                                                                                                     </div>
@@ -211,7 +218,11 @@
                                                                                                     <div id="fg-fw-8" class="form-group">
                                                                                                         <label for="wc_type" class="col-md-4 control-label">Wheelchair Type</label>
                                                                                                         <div class="col-md-4">
-                                                                                                            <select title="wc_type" id="wc_type" class="form-control select-picker show-tick" name="wc_type" data-style="btn-info" autofocus>
+                                                                                                            <select title="wc_type" id="wc_type" class="wc_types form-control select-picker show-tick" name="wc_type" data-style="btn-info" autofocus>
+                                                                                                                <option value="0" disabled selected>Select Wheelchair Type</option>
+                                                                                                                @foreach($wc_types as $wc_type)
+                                                                                                                    <option value="{{$wc_type->id}}">{{$wc_type->wc_type}}</option>
+                                                                                                                @endforeach
                                                                                                             </select>
                                                                                                         </div>
                                                                                                     </div>
@@ -232,19 +243,21 @@
                                                                                                     <!-- Wheelchair Info Title -->
                                                                                                     <h5 id="wc-info-title">Wheelchair Information</h5>
 
-                                                                                                    <!-- Impatient Wheelchair Model Select Form Group # 9 -->
+                                                                                                    <!-- Impatient Wheelchair Model Select Form Group # 9 (JQuery Control) -->
                                                                                                     <div id="fg-fw-9" class="form-group">
                                                                                                         <label for="wc_model" class="col-md-4 control-label">Wheelchair Model</label>
                                                                                                         <div class="col-md-4">
-                                                                                                            <select title="wc_model" id="wc_model" class="form-control select-picker show-tick" name="wc_model" data-style="btn-info" autofocus>
+                                                                                                            <select title="wc_model" id="wc_model" class="inpatient_wc_model form-control select-picker show-tick" name="wc_model" data-style="btn-info" autofocus>
+                                                                                                                <option value="0" disabled selected>Select Wheelchair Model</option>
                                                                                                             </select>
                                                                                                         </div>
                                                                                                     </div>
-                                                                                                    <!-- Inpatient Wheelchair Brand Select Form Group # 10 -->
+                                                                                                    <!-- Inpatient Wheelchair Brand Select Form Group # 10 (JQuery Control) -->
                                                                                                     <div id="fg-fw-10" class="form-group">
                                                                                                         <label for="wc_brand" class="col-md-4 control-label">Wheelchair Brand</label>
                                                                                                         <div class="col-md-4">
-                                                                                                            <select title="wc_brand" id="wc_brand" class="form-control select-picker show-tick" name="wc_brand" data-style="btn-info" autofocus>
+                                                                                                            <select title="wc_brand" id="wc_brand" class="inpatient_wc_brand form-control select-picker show-tick" name="wc_brand" data-style="btn-info" autofocus>
+                                                                                                                <option value="0" disabled selected>Select Wheelchair Brand</option>
                                                                                                             </select>
                                                                                                         </div>
                                                                                                     </div>
@@ -252,7 +265,11 @@
                                                                                                     <div id="fg-fw-11" class="form-group">
                                                                                                         <label for="wc_dimensions" class="col-md-4 control-label">Wheelchair Dimensions</label>
                                                                                                         <div class="col-md-4">
-                                                                                                            <select title="wc_dimensions" id="wc_dimensions" class="form-control select-picker show-tick" name="wc_dimensions" data-style="btn-info" autofocus>
+                                                                                                            <select title="wc_dimensions" id="wc_dimensions" class="wc_dimensions form-control select-picker show-tick" name="wc_dimensions" data-style="btn-info" autofocus>
+                                                                                                                <option value="0" disabled selected>Select Wheelchair Dimensions</option>
+                                                                                                                @foreach($wc_dimensions as $wc_dems)
+                                                                                                                    <option value="{{$wc_dems->id}}">{{$wc_dems->wc_dimensions}}</option>
+                                                                                                                @endforeach
                                                                                                             </select>
                                                                                                         </div>
                                                                                                     </div>
@@ -260,7 +277,11 @@
                                                                                                     <div id="fg-fw-12" class="form-group">
                                                                                                         <label for="wc_height" class="col-md-4 control-label">Wheelchair Height</label>
                                                                                                         <div class="col-md-4">
-                                                                                                            <select title="wc_height" id="wc_height" class="form-control select-picker show-tick" name="wc_height" data-style="btn-info" autofocus>
+                                                                                                            <select title="wc_height" id="wc_height" class="wc_heights form-control select-picker show-tick" name="wc_height" data-style="btn-info" autofocus>
+                                                                                                                <option value="0" disabled selected>Select Wheelchair Height</option>
+                                                                                                                @foreach($wc_heights as $wc_height)
+                                                                                                                    <option value="{{$wc_height->id}}">{{$wc_height->wc_height}}</option>
+                                                                                                                @endforeach
                                                                                                             </select>
                                                                                                         </div>
                                                                                                     </div>
@@ -283,7 +304,11 @@
                                                                                                     <div id="fg-fw-13" class="form-group">
                                                                                                         <label for="wc_back" class="col-md-4 control-label">Wheelchair Back</label>
                                                                                                         <div class="col-md-4">
-                                                                                                            <select title="wc_back" id="wc_back" class="form-control select-picker show-tick" name="wc_back" data-style="btn-info" autofocus>
+                                                                                                            <select title="wc_back" id="wc_back" class="wc_back_type form-control select-picker show-tick" name="wc_back" data-style="btn-info" autofocus>
+                                                                                                                <option value="0" disabled selected>Select Wheelchair Back</option>
+                                                                                                                @foreach($wc_back_type as $wc_back)
+                                                                                                                    <option value="{{$wc_back->id}}">{{$wc_back->wc_back_type}}</option>
+                                                                                                                @endforeach
                                                                                                             </select>
                                                                                                         </div>
                                                                                                     </div>
@@ -291,7 +316,11 @@
                                                                                                     <div id="fg-fw-14" class="form-group">
                                                                                                         <label for="cushion_type" class="col-md-4 control-label">Cushion Type</label>
                                                                                                         <div class="col-md-4">
-                                                                                                            <select title="cushion_type" id="cushion_type" class="form-control select-picker show-tick" name="cushion_type" data-style="btn-info" autofocus>
+                                                                                                            <select title="cushion_type" id="cushion_type" class="cushion_type form-control select-picker show-tick" name="cushion_type" data-style="btn-info" autofocus>
+                                                                                                                <option value="0" disabled selected>Select Cushion Type</option>
+                                                                                                                @foreach($cushion_types as $cushion_type)
+                                                                                                                    <option value="{{$cushion_type->id}}">{{$cushion_type->cushion_type}}</option>
+                                                                                                                @endforeach
                                                                                                             </select>
                                                                                                         </div>
                                                                                                     </div>
@@ -299,7 +328,11 @@
                                                                                                     <div id="fg-fw-15" class="form-group">
                                                                                                         <label for="cushion_dimensions" class="col-md-4 control-label">Cushion Dimensions</label>
                                                                                                         <div class="col-md-4">
-                                                                                                            <select title="cushion_dimensions" id="cushion_dimensions" class="form-control select-picker show-tick" name="cushion_dimensions" data-style="btn-info" autofocus>
+                                                                                                            <select title="cushion_dimensions" id="cushion_dimensions" class="cushion_dimensions form-control select-picker show-tick" name="cushion_dimensions" data-style="btn-info" autofocus>
+                                                                                                                <option value="0" disabled selected>Select Cushion Type</option>
+                                                                                                                @foreach($cushion_dimensions as $cushion_dem)
+                                                                                                                    <option value="{{$cushion_dem->id}}">{{$cushion_dem->cushion_dimensions}}</option>
+                                                                                                                @endforeach
                                                                                                             </select>
                                                                                                         </div>
                                                                                                     </div>
@@ -307,7 +340,11 @@
                                                                                                     <div id="fg-fw-16" class="form-group">
                                                                                                         <label for="armrest_type" class="col-md-4 control-label">Armrest Type</label>
                                                                                                         <div class="col-md-4">
-                                                                                                            <select title="armrest_type" id="armrest_type" class="form-control select-picker show-tick" name="armrest_type" data-style="btn-info" autofocus>
+                                                                                                            <select title="armrest_type" id="armrest_type" class="armrest_type form-control select-picker show-tick" name="armrest_type" data-style="btn-info" autofocus>
+                                                                                                                <option value="0" disabled selected>Select Armrest Type</option>
+                                                                                                                @foreach($armrest_types as $armrest_type)
+                                                                                                                    <option value="{{$armrest_type->id}}">{{$armrest_type->armrest_type}}</option>
+                                                                                                                @endforeach
                                                                                                             </select>
                                                                                                         </div>
                                                                                                     </div>
@@ -323,7 +360,6 @@
                                                                                                     </div>
                                                                                                     <div class="clearfix"></div>
                                                                                                 </div>
-                                                                                            </div>
                                                                                         </form>
                                                                                     </div>
                                                                                 </section>
@@ -348,4 +384,179 @@
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.1.1.js"
+            integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        // This block of JQuery code addresses SELECT tag group #2.
+        $(document).ready(function() {
+            $(document).on('change', '.units', function () {
+                var unit_id = $(this).val();
+                var div = $(this).parent();
+                var opt_tag = " ";
+                $.ajax({
+                    type: 'get',
+                    url: '{!!URL::to('findPatientName')!!}',
+                    data: {'id': unit_id},
+                    success: function (data) {
+                        console.log('success');
+                        console.log(data);
+                        console.log(data.length);
+                        opt_tag += '<option value="0" selected disabled>Select Patient</option>';
+                        for (var i = 0; i < data.length; i++) {
+                            opt_tag += '<option value="' + data[i].id + '">' + data[i].patient_name + '</option>';
+                        }
+                        div.find('.patient_name').html(" ");
+                        div.find('.patient_name').append(opt_tag);
+                    },
+                    error: function () {
+                    }
+                });
+            });
+            // This block of JQuery code addresses SELECT tag group #3.
+            $(document).on('change', '.patient_name', function () {
+                var patient_id = $(this).val();
+                var div = $(this).parent();
+                var opt_tag = " ";
+                $.ajax({
+                    type: 'get',
+                    url: '{!!URL::to('findRoom')!!}',
+                    data: {'id': patient_id},
+                    success: function (data) {
+                        console.log('success');
+                        console.log(data);
+                        console.log(data.length);
+                        opt_tag += '<option value="0" selected disabled>Select Room</option>';
+                        for (var i = 0; i < data.length; i++) {
+                            opt_tag += '<option value="' + data[i].id + '">' + data[i].room + '</option>';
+                        }
+                        div.find('.room').html(" ");
+                        div.find('.room').append(opt_tag);
+                    },
+                    error: function () {
+                    }
+                });
+            });
+            // This block of JQuery code addresses SELECT tag group #4.
+            $(document).on('change', '.room', function () {
+                var gender_id = $(this).val();
+                var div = $(this).parent();
+                var opt_tag = " ";
+                $.ajax({
+                    type: 'get',
+                    url: '{!!URL::to('findGender')!!}',
+                    data: {'id': gender_id},
+                    success: function (data) {
+                        console.log('success');
+                        console.log(data);
+                        console.log(data.length);
+                        opt_tag += '<option value="0" selected disabled>Select Gender</option>';
+                        for (var i = 0; i < data.length; i++) {
+                            opt_tag += '<option value="' + data[i].id + '">' + data[i].gender + '</option>';
+                        }
+                        div.find('.gender').html(" ");
+                        div.find('.gender').append(opt_tag);
+                    },
+                    error: function () {
+                    }
+                });
+            });
+            // This block of JQuery code addresses SELECT tag group #5.
+            $(document).on('change', '.gender', function () {
+                var diagnosis_id = $(this).val();
+                var div = $(this).parent();
+                var opt_tag = " ";
+                $.ajax({
+                    type: 'get',
+                    url: '{!!URL::to('findDiagnosis')!!}',
+                    data: {'id': diagnosis_id},
+                    success: function (data) {
+                        console.log('success');
+                        console.log(data);
+                        console.log(data.length);
+                        opt_tag += '<option value="0" selected disabled>Select Diagnosis</option>';
+                        for (var i = 0; i < data.length; i++) {
+                            opt_tag += '<option value="' + data[i].id + '">' + data[i].diagnosis_abbreviation + '</option>';
+                        }
+                        div.find('.diagnosis_abbreviation').html(" ");
+                        div.find('.diagnosis_abbreviation').append(opt_tag);
+                    },
+                    error: function () {
+                    }
+                });
+            });
+            // This block of JQuery code addresses SELECT tag group #7.
+            $(document).on('change', '.therapist_title', function () {
+                var name_id = $(this).val();
+                var div = $(this).parent();
+                var opt_tag = " ";
+                $.ajax({
+                    type: 'get',
+                    url: '{!!URL::to('findTherapistNames')!!}',
+                    data: {'id': name_id},
+                    success: function (data) {
+                        console.log('success');
+                        console.log(data);
+                        console.log(data.length);
+                        opt_tag += '<option value="0" selected disabled>Select Therapist Name</option>';
+                        for (var i = 0; i < data.length; i++) {
+                            opt_tag += '<option value="' + data[i].id + '">' + data[i].therapist_names + '</option>';
+                        }
+                        div.find('.therapist_names').html(" ");
+                        div.find('.therapist_names').append(opt_tag);
+                    },
+                    error: function () {
+                    }
+                });
+            });
+            // This block of JQuery code addresses SELECT tag group #9.
+            $(document).on('change', '.wc_types', function () {
+                var wc_brand_id = $(this).val();
+                var div = $(this).parent();
+                var opt_tag = " ";
+                $.ajax({
+                    type: 'get',
+                    url: '{!!URL::to('findInpatientWcModels')!!}',
+                    data: {'id': wc_brand_id},
+                    success: function (data) {
+                        console.log('success');
+                        console.log(data);
+                        console.log(data.length);
+                        opt_tag += '<option value="0" selected disabled>Select Wheelchair Model</option>';
+                        for (var i = 0; i < data.length; i++) {
+                            opt_tag += '<option value="' + data[i].id + '">' + data[i].inpatient_wc_model + '</option>';
+                        }
+                        div.find('.inpatient_wc_model').html(" ");
+                        div.find('.inpatient_wc_model').append(opt_tag);
+                    },
+                    error: function () {
+                    }
+                });
+            });
+            // This block of JQuery code addresses SELECT tag group #10.
+            $(document).on('change', '.inpatient_wc_model', function () {
+                var wc_model_id = $(this).val();
+                var div = $(this).parent();
+                var opt_tag = " ";
+                $.ajax({
+                    type: 'get',
+                    url: '{!!URL::to('findInpatientWcBrands')!!}',
+                    data: {'id': wc_model_id},
+                    success: function (data) {
+                        console.log('success');
+                        console.log(data);
+                        console.log(data.length);
+                        opt_tag += '<option value="0" selected disabled>Select Wheelchair Brand</option>';
+                        for (var i = 0; i < data.length; i++) {
+                            opt_tag += '<option value="' + data[i].id + '">' + data[i].inpatient_wc_brand + '</option>';
+                        }
+                        div.find('.inpatient_wc_brand').html(" ");
+                        div.find('.inpatient_wc_brand').append(opt_tag);
+                    },
+                    error: function () {
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

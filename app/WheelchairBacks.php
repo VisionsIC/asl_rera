@@ -2,7 +2,7 @@
 namespace App;
 use Illuminate\Database\Eloquent\Model;
 /**
- * App\WheelchairHeights
+ * App\WheelchairBacks
  * @property int $id
  * @property string $wc_back_type
  * @property \Carbon\Carbon $created_at
@@ -15,5 +15,5 @@ use Illuminate\Database\Eloquent\Model;
  */
 class WheelchairBacks extends Model {
     // Select Field #13 Data Model Class: WheelchairBacks
-    protected $table='wc_backs';
+    protected $table='wc_back_type';
 }
